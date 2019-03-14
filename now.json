@@ -25,7 +25,7 @@
     { "src": "nodejs-micro/index.js", "use":  "now-micro" },
     { "src": "gatsby/package.json", "use": "@now/static-build", "config": { "distDir": "public" } },
     { "src": "docz/package.json", "use": "@now/static-build" },
-    { "src": "typescript/src/**/*.ts", "use": "@now/node@canary" },
+    { "src": "typescript/src/**/*.ts", "use": "@now/node" },
     {
       "src": "zola/build.sh",
       "use": "@now/static-build",
