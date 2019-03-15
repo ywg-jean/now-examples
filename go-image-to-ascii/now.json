@@ -1,0 +1,14 @@
+{
+  "name": "image-to-ascii",
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.go",
+      "use": "@now/go"
+    },
+    {
+      "src": "assets/**",
+      "use": "@now/static"
+    }
+  ]
+}
