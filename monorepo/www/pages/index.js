@@ -169,7 +169,8 @@ const Page = ({nows}) => <div className="container">
   </div>
 
 Page.getInitialProps = async ({req}) => {
-  const baseUrl = `https://${req.headers.host}/api`
+  const protocol = process.env.NOW_REGION === 'dev1' ? 'http' : 'https';
+  const baseUrl = `${protocol}://${req.headers.host}/api`
   const nows = await Promise.all(langs.map(async ({name, path, ext}) => {
     const now = await (await fetch(`${baseUrl}/${path}`)).text()
     return {name, path, now, ext}
