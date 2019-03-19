@@ -1,14 +1,14 @@
 # Learn how to add code owners here:
 # https://help.github.com/en/articles/about-code-owners
 
-*                         @timothyis @unicodeveloper
+*                         @timothyis
 /create-react-app/        @Timer
-/go/                      @matheuss @timothyis @unicodeveloper
-/html-minifier/           @leo @timothyis @unicodeveloper
-/mdx-deck/                @timneutkens @timothyis @unicodeveloper
-/nextjs/                  @timneutkens @timothyis @unicodeveloper
-/nextjs-static/           @timneutkens @timothyis @unicodeveloper
-/nextjs-news/             @timneutkens @timothyis @unicodeveloper
-/puppeteer-screenshot/    @styfle @timothyis @unicodeveloper
-/typescript/              @TejasQ @timothyis @unicodeveloper
-/zola/                    @TejasQ @timothyis @unicodeveloper
+/go/                      @matheuss @timothyis
+/html-minifier/           @leo @timothyis
+/mdx-deck/                @timneutkens @timothyis
+/nextjs/                  @timneutkens @timothyis
+/nextjs-static/           @timneutkens @timothyis
+/nextjs-news/             @timneutkens @timothyis
+/puppeteer-screenshot/    @styfle @timothyis
+/typescript/              @TejasQ @timothyis
+/zola/                    @TejasQ @timothyis
