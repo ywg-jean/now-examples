@@ -99,6 +99,12 @@
       "description": "An Apollo Server example using Express"
     },
     {
+      "example": "Markdown Static",
+      "path": "/markdown",
+      "demo": "https://markdown-v2.now.sh/",
+      "description": "A static website using Markdown and CSS"
+    },
+    {
       "example": "MDX Deck",
       "path": "/mdx-deck",
       "demo": "https://mdx-deck-v2.now.sh",
