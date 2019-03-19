@@ -4,7 +4,7 @@ import 'isomorphic-unfetch'
 const langs = [
   { name: 'Go', path: 'go', ext: '.go' },
   { name: 'Python', path: 'python', ext: '.py' },
-  { name: 'PHP', path: 'php', ext: '.php' },
+  { name: 'Bash', path: 'bash', ext: '.sh' },
   { name: 'Node.js', path: 'node', ext: '.js' }
 ]
 

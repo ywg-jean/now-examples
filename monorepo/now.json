@@ -5,7 +5,7 @@
         { "src": "www/package.json", "use": "@now/next" },
         { "src": "api/go/*.go", "use": "@now/go" },
         { "src": "api/python/*.py", "use": "@now/python" },
-        { "src": "api/php/*.php", "use": "@now/php" },
+        { "src": "api/bash/*.sh", "use": "@now/bash" },
         { "src": "api/node/*.js", "use": "@now/node" }
     ],
     "routes": [
