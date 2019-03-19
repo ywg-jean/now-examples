@@ -6,6 +6,7 @@
     { "src": "apollo/index.js", "use": "@now/node-server" },
     { "src": "go/*.go", "use": "@now/go" },
     { "src": "bash/*.sh", "use": "@now/bash" },
+    { "src": "markdown/*.md", "use": "@now/md" },
     { "src": "nodejs/*.js", "use": "@now/node" },
     { "src": "php-7/*.php", "use": "@now/php" },
     { "src": "python/*.py", "use": "@now/python", "config": { "maxLambdaSize": "10mb" } },
