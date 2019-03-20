@@ -13,7 +13,7 @@
 | [PHP 7](/php-7)    | https://php7-v2.now.sh     | A simple PHP 7 example          |
 | [Python](/python)  | https://python-v2.now.sh | A simple Python example         |
 | [Node.js](/nodejs) | https://nodejs-v2.now.sh | A simple Node.js example        |
-| [Static](/static)  | https://static-v2.now.sh | A simple Static website example |
+| [Static](/static)  | https://static-example.now.sh | A simple Static website example |
 
 ---
 
