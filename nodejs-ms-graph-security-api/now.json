@@ -6,9 +6,9 @@
     { "src": "/site/package.json", "use": "@now/next" }
   ],
   "routes": [
-	{ "src": "/login", "dest": "/api/endpoints/login" },
-	{ "src": "/token", "dest": "/api/endpoints/token" },
-	{ "src": "/logout", "dest": "/api/endpoints/logout" },
+    { "src": "/login", "dest": "/api/endpoints/login" },
+    { "src": "/token", "dest": "/api/endpoints/token" },
+    { "src": "/logout", "dest": "/api/endpoints/logout" },
     { "src": "/api/(.*)", "dest": "/api/endpoints/$1" },
     { "src": "/(.*)", "dest": "/site/$1" }
   ],
