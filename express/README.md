@@ -1,46 +1,70 @@
 # Creating a server with Express
 
-In this example, we will create a simple server with Express a fast, unopinionated, minimalist web framework for Node.js.
+This example offers a pre-setup project for [Express](http://expressjs.com/) that allows you to get up and running in no time!
 
-### Getting started with Express
+You can run the following command `now init express` to fetch the example to your local machine.
 
-Let's start with adding dependency:
-
-```
-yarn add express
-```
-
-### Deploy with Now
-
-First we need to create a `now.json` configuration file to instruct Now how to build the project.
-
-For this example we will be using our newest version [Now 2.0](https://zeit.co/now).
-
-By adding the `version` key to the `now.json` file, we can specify which Now Platform version to use.
-
-We also need to define each builders we would like to use. [Builders](https://zeit.co/docs/v2/deployments/builders/overview/) are modules that take a deployment's source and return an output, consisting of [either static files or dynamic Lambdas](https://zeit.co/docs/v2/deployments/builds/#sources-and-outputs).
-
-In this case we are going to use `@now/node` in order to start a Node.js server using Express, also we will need to add a [`routes`](https://zeit.co/docs/v2/deployments/configuration#routes) key instructing Now to forward and handle all routes on Express.
-
-We will also define a name for our project (optional).
+This Express example features the [`now.json` configuration file](https://zeit.co/docs/v2/deployments/configuration) below.
 
 ```json
 {
     "version": 2,
-    "name": "nodejs-express",
+    "name": "express",
     "builds": [
-        { "src": "index.js", "use": "@now/node" }
-    ],
-    "routes": [
-        { "src": "/(.*)", "dest": "index.js" }
+        { "src": "**/*.js", "use": "@now/node" }
     ]
 }
 ```
 
-Visit our [documentation](https://zeit.co/docs/v2/deployments/configuration) for more information on the `now.json` configuration file.
+_now.json_
 
-We are now ready to deploy the app.
+- The `version` property specifies [`Now 2.0`](https://zeit.co/now).
+- The `name` property sets the name for the deployment.
+- The [`builds` property](https://zeit.co/docs/v2/deployments/builds) allows Now to use a [builder](https://zeit.co/docs/v2/deployments/builders/overview/) with a specific source target.
+
+In this case we are going to use the `@now/node` builder to create a lambda function for every `.js` file in the project.  There are two `.js` files - `index.js` and `about/index.js`, which will be made available at your Now servers' urls `/` and `/about`.
+
+Deploy the app with Now.
+
+```shell
+$ now
+```
+
+# Using Express with the `@now/node` builder
+
+Note that we won't be creating a server, or using a `listen()` function to start a server, since Now is functioning as the server.  Express is be used just for routing and middleware purposes.
+
+Calling `express()` returns a function that takes a standard Node.js [http request object](https://nodejs.org/api/http.html#http_class_http_incomingmessage) and [http response object](https://nodejs.org/api/http.html#http_class_http_serverresponse) as parameters. Typically this function is defined as the variable `app` in an Node.js module, and that function also supports [routing and middleware customization](http://expressjs.com/en/4x/api.html#app).  And ... that function signature - `(req, res)` - is the exact shape that Now expects to be exported from a module. So you can return the result of the `express()` call, adding routing and middleware as you normally would with an express server.
+
+Here's a very small example of using express:
+
+```js
+const express = require('express')
+
+const app = express()
+
+app.get('*', (req, res) => {
+    res.send(200, '<h1>Hello, world!</h1>')
+})
+
+module.exports = app
 
 ```
-now
+
+The `req` and `res` objects passed to the callback of `app.get()` will then be [Express Request](http://expressjs.com/en/4x/api.html#req) and [Express Response](http://expressjs.com/en/4x/api.html#res) objects, instead of Node's standard http request and response objects.  So, you can use the Express [`res.send()` method](http://expressjs.com/en/4x/api.html#res.send) instead of the lower-level methods on the standard Node.js response object.
+
+In the actual example code - [`index.js`](index.js) - you'll also note usage of
+the [helmet package](https://npmjs.org/package/helmet) in the same way you'd
+use it in a typical express server:
+
+```js
+app.use(helmet())
 ```
+
+The helmet package adds extra security-related HTTP headers to HTTP responses sent from the express app.
+
+## Resources
+
+- To find more information on using the **Node.js Builder**, please refer to the [Node.js Builder (@now/node)](https://zeit.co/docs/v2/deployments/official-builders/node-js-now-node/) documentation.
+
+- Check out how to [Deploy any of your applications with ZEIT Now.](https://zeit.co/docs/v2/deployments/basics)

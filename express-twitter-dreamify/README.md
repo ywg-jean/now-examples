@@ -4,6 +4,8 @@
 
 This repo is an example app featured in [this blog post](https://zeit.co/blog/serverless-express-js-lambdas-with-now-2). Please be sure to read the blog post to fully understand the concepts demonstrated here.
 
+Also see the [Express example](../express/README.md) for more information on how to use Express with Now.
+
 ## Getting Started
 
 1. Create an app on [Twitter for Developers](https://developer.twitter.com/).
