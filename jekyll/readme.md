@@ -8,6 +8,8 @@ To get started with this project yourself, use the following command from [Now C
 $ now init jekyll
 ```
 
+> Alternatively, create a project, and Git repository, with this example template [using the ZEIT dashboard](https://zeit.co/new/jekyll).
+
 Once initialized locally, you can use the [Jekyll CLI](https://jekyllrb.com/docs/) to start a local development server so you can work on your new Jekyll site:
 
 ```shell

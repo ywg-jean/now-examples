@@ -151,6 +151,12 @@
       "path": "/puppeteer-screenshot",
       "demo": "https://screenshot-v2.now.sh",
       "description": "A Puppeteer based screenshot example"
+    },
+    {
+      "example": "Jekyll",
+      "path": "jekyll",
+      "demo": "https://jekyll.now-examples.now.sh/",
+      "description": "A fresh Jekyll application, ready to be built and served in the cloud with Now."
     }
   ],
   "Fully Working Applications": [
