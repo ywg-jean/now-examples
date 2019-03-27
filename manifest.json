@@ -154,7 +154,7 @@
     },
     {
       "example": "Jekyll",
-      "path": "jekyll",
+      "path": "/jekyll",
       "demo": "https://jekyll.now-examples.now.sh/",
       "description": "A fresh Jekyll application, ready to be built and served in the cloud with Now."
     }
