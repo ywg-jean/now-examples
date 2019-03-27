@@ -31,7 +31,7 @@
     { "src": "optipng/showcase.png", "use": "@now/optipng" },
     { "src": "nodejs-hapi/index.js", "use": "@now/node-server" },
     { "src": "nodejs-koa/index.js", "use": "@now/node" },
-    { "src": "nodejs-coffee/app.js", "use": "@now/node" },
+    { "src": "nodejs-coffee/app.coffee", "use": "now-coffee", "config": { "dest": "app.coffee" } },
     { "src": "express/**/*.js", "use": "@now/node" },
     { "src": "nodejs-micro/index.js", "use":  "now-micro" },
     { "src": "gatsby/package.json", "use": "@now/static-build", "config": { "distDir": "public" } },

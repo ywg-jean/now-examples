@@ -1,11 +1,6 @@
 {
   "name": "coffee",
   "version": 2,
-  "alias": "coffee.now.sh",
-  "builds": [
-    { "src": "app.js", "use": "@now/node" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "app.js" }
-  ]
+  "builds": [{ "src": "app.coffee", "use": "now-coffee" }],
+  "routes": [{ "src": "/(.*)", "dest": "app.coffee" }]
 }
