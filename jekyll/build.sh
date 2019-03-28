@@ -12,7 +12,8 @@ popd
 
 rbenv install 2.5.5 && rbenv global 2.5.5
 
-gem install jekyll bundler
+gem install jekyll
+gem install bundler -v '1.17.3'
 
 bundle install
 
