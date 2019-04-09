@@ -42,6 +42,7 @@
 | [Zola](/zola) | https://zola.now.sh | A static website uses [Zola](https://www.getzola.org) and builds a website with Rust in the cloud |
 | [Puppeteer](/puppeteer-screenshot) | https://screenshot-v2.now.sh | A Puppeteer based screenshot example |
 | [Jekyll](/jekyll) | https://jekyll.now-examples.now.sh/ | A ready-to-deploy Jekyll site, presetup to pick up and go. |
+| [Flask](/python-flask) | https://python-flask.now-examples.now.sh | An example using Flask, a Python Microframework |
 
 ---
 
