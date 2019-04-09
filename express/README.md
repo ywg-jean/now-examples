@@ -32,7 +32,7 @@ $ now
 
 # Using Express with the `@now/node` builder
 
-Note that we won't be creating a server, or using a `listen()` function to start a server, since Now is functioning as the server.  Express is be used just for routing and middleware purposes.
+Note that we won't be creating a server, or using a `listen()` function to start a server, since Now is functioning as the server.  Express is used just for routing and middleware purposes.
 
 Calling `express()` returns a function that takes a standard Node.js [http request object](https://nodejs.org/api/http.html#http_class_http_incomingmessage) and [http response object](https://nodejs.org/api/http.html#http_class_http_serverresponse) as parameters. Typically this function is defined as the variable `app` in an Node.js module, and that function also supports [routing and middleware customization](http://expressjs.com/en/4x/api.html#app).  And ... that function signature - `(req, res)` - is the exact shape that Now expects to be exported from a module. So you can return the result of the `express()` call, adding routing and middleware as you normally would with an express server.
 
