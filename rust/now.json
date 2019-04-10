@@ -1,6 +1,5 @@
 {
   "name": "now-rust",
-  "public": true,
   "version": 2,
   "builds": [
     {
