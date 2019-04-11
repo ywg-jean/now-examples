@@ -9,7 +9,7 @@ This Apollo Server example features the [`now.json` configuration file](https://
 ```json
 {
   "version": 2,
-  "builds": [{ "src": "index.js", "use": "@now/node-server" }],
+  "builds": [{ "src": "index.js", "use": "@now/node" }],
   "routes": [{ "src": "/.*", "dest": "index.js" }]
 }
 ```
@@ -19,7 +19,7 @@ _now.json_
 - The [`routes` property](/docs/v2/deployments/configuration#routes) allows Now to route your deployment either by using a source and destination, or by way of a source, status, and headers.
 - The [`builds` property](https://zeit.co/docs/v2/deployments/builds) allows Now to use a [builder](https://zeit.co/docs/v2/deployments/builders/overview/) with a specific source target.
 
-The `@now/node-server` [builder](https://zeit.co/docs/v2/deployments/builders/overview) enables a Node.js server deployment.
+The `@now/node` [builder](https://zeit.co/docs/v2/deployments/builders/overview) enables a Node.js function.
 
 Deploy the app with Now.
 
