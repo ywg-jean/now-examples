@@ -38,7 +38,7 @@ now init              # Pick an example in the CLI
 | [Vuepress](/vuepress) | https://vuepress-v2.now.sh | A docs example using VuePress        |
 | [Nuxt Static](/nuxt-static) | https://nuxt-static-v2.now.sh | A Nuxt Static exported example |
 | [Express](/express) | https://express-v2.now.sh | An example using Express        |
-| [Apollo Server](/apollo) | https://apollo-v2.now.sh | An Apollo Server example using Express        |
+| [Apollo Server](/apollo) | https://apollo.now-examples.now.sh/ | An Apollo Server example using Serverless Micro        |
 | [Markdown](/markdown) | https://markdown-v2.now.sh | A static website using Markdown and CSS        |
 | [MDX Deck](/mdx-deck) | https://mdx-deck-v2.now.sh | A presentation using MDX Deck        |
 | [MDX Deck - Advanced](/mdx-deck-advanced) | https://advanced-mdx-deck.now.sh | A presentation using MDX Deck with custom layout and React components        |

@@ -95,8 +95,8 @@
     {
       "example": "Apollo Server",
       "path": "/apollo",
-      "demo": "https://apollo-v2.now.sh",
-      "description": "An Apollo Server example using Express"
+      "demo": "https://apollo.now-examples.now.sh/",
+      "description": "An Apollo Server example using Serverless Micro"
     },
     {
       "example": "Markdown Static",
