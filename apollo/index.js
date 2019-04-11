@@ -1,5 +1,4 @@
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer, gql } = require('apollo-server-micro');
 
 const books = [
   { id: 1, title: 'The Trials of Brother Jero', rating: 8, authorId: 1 },
@@ -78,7 +77,4 @@ const server = new ApolloServer({
   playground: true,
 });
 
-const app = express();
-server.applyMiddleware({ app, path: '*' });
-
-module.exports = app;
+module.exports = server.createHandler();
