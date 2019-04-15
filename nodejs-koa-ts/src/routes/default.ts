@@ -5,12 +5,13 @@ import { createApp } from "../common";
 
 async function main(ctx: Context, next: Function) {
   const { host } = ctx.headers;
+  const proto = ctx.headers['x-forwarded-proto'];
 
   ctx.status = 200;
   ctx.body = {
     description: 'Hello! This server supports multiple routes.',
-    first: `https://${host}/first`,
-    second: `https://${host}/second`
+    first: `${proto}://${host}/first`,
+    second: `${proto}://${host}/second`
   }
 }
 
