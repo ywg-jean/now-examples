@@ -3,8 +3,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 ProfilePage.getInitialProps = async ({ req, query }) => {
-  const host = req ? `https://${req.headers.host}` : '';
-  const res = await fetch(`${host}/api/profiles/${query.id}`);
+  const protocol = req
+    ? `${req.headers['x-forwarded-proto']}:`
+    : location.protocol;
+  const host = req ? req.headers['x-forwarded-host'] : location.host;
+  const pageRequest = `${protocol}//${host}/api/profiles/${query.id}`;
+  const res = await fetch(pageRequest);
   const json = await res.json();
   return json;
 };
