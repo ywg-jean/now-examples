@@ -1,8 +1,16 @@
 {
   "version": 2,
   "name": "now-examples",
-  "aliases": ["now-examples.zeit.sh"],
+  "alias": "now-examples.zeit.sh",
   "public": true,
+  "routes": [
+    {
+      "src": "/_api/.*",
+      "headers": {
+        "cache-control": "public, s-max-age=10, stale-while-revalidate=600, stale-if-error=86400"
+      }
+    }
+  ],
   "builds": [
     { "src": "package.json", "use": "@now/static-build" },
     { "src": "apollo/index.js", "use": "@now/node-server" },
