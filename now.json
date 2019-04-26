@@ -3,6 +3,7 @@
   "name": "now-examples",
   "public": true,
   "builds": [
+    { "src": "package.json", "use": "@now/static-build" },
     { "src": "apollo/index.js", "use": "@now/node-server" },
     { "src": "go/*.go", "use": "@now/go" },
     { "src": "bash/*.sh", "use": "@now/bash" },

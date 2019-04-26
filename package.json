@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "now-build": "node build-api.js"
+  },
+  "devDependencies": {
+    "fs-extra": "^7.0.1",
+    "tar-fs": "^2.0.0"
+  }
+}
