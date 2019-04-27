@@ -23,6 +23,7 @@
       }
     },
     { "src": "nodejs/*.js", "use": "@now/node" },
+    { "src": "nodejs-ts/*.ts", "use": "@now/node" },
     { "src": "php-7/*.php", "use": "@now/php" },
     {
       "src": "python/*.py",
