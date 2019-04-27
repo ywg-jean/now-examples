@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "functions",
+  "devDependencies": {
+    "@types/node": "^11.13.8"
+  }
+}
