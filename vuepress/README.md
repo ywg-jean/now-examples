@@ -10,7 +10,7 @@ First we need to install Vuepress as a development dependency running using `npm
 npm install vuepress --save-dev
 ```
 
-Next we need to add the Vuepress scripts to our `pacakge.json` file:
+Next we need to add the Vuepress scripts to our `package.json` file:
 
 ```json
 {
