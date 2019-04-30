@@ -59,6 +59,6 @@ now init              # Pick an example in the CLI
 |:---------- |:---------|:----------------|
 | [Next News](/nextjs-news) | https://nextjs-news-v2.now.sh | A Hacker News clone created with Next.js deployed to Now 2.0 |
 | [Slack Eval](/slack-eval) | https://serverless-eval.now.sh | A serverless Slack app deployed to Now 2.0 |
-| [Next MySQL Robots](/next-mysql) | https://nextjs-mysql.now.sh | A serverless Next.js app that uses a MySQL database |
+| [Next MySQL Robots](/nextjs-mysql) | https://nextjs-mysql.now.sh | A serverless Next.js app that uses a MySQL database |
 | [Node Canvas](/nodejs-canvas-partyparrot) | https://ppaas.now.sh | A Party Parrot generator built on node-canvas |
 | [Twitter Dreamify with Express](/express-twitter-dreamify) | https://serverless-express.now.sh | A serverless Express application that takes an authenticated Twitter user's avatar and dreamifies it. [Read the blog post on this example](https://zeit.co/blog/serverless-express-js-lambdas-with-now-2). |
