@@ -7,7 +7,7 @@ In this example we will be deploying a simple "Hello World" example with GoLang.
 - Create a `index.go` file with the following code:
 
 ```go
-package main
+package handler
 
 import (
 	"fmt"
