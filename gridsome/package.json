@@ -5,7 +5,8 @@
     "build": "gridsome build",
     "develop": "gridsome develop",
     "explore": "gridsome explore",
-    "now-build": "yarn build"
+    "now-build": "yarn build",
+    "now-dev": "gridsome develop -p $PORT"
   },
   "dependencies": {
     "gridsome": "^0.3.0"

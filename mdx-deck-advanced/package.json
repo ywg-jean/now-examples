@@ -6,7 +6,7 @@
     "build:images": "cp -r images dist/",
     "build:assets": "cp -r snippets dist/",
     "now-build": "npm run build:presentation && npm run build:images && npm run build:assets",
-    "deploy": "now"
+    "now-dev": "mdx-deck -p $PORT demo-advanced.mdx"
   },
   "devDependencies": {
     "ajv": "6.8.1",

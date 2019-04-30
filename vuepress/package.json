@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
+    "now-dev": "vuepress dev docs --port=$PORT",
     "now-build": "npm run build && mv docs/.vuepress/dist dist"
   },
   "devDependencies": {

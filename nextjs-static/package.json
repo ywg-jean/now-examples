@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "now-build": "next build && next export -o dist"
+    "now-build": "next build && next export -o dist",
+    "now-dev": "next -p $PORT"
   },
   "dependencies": {
     "next": "latest",

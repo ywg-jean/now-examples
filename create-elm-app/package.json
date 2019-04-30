@@ -4,6 +4,7 @@
   "description": "Elm example app",
   "scripts": {
     "start": "elm-app start",
+    "now-dev": "elm-app start",
     "build": "NODE_ENV=production elm-app build",
     "now-build": "NODE_ENV=production elm-app build",
     "test": "elm-format --validate . && elm-test"
