@@ -32,8 +32,13 @@
     },
     {
       "src": "python-flask/**/*.py",
-      "use": "@now/python@canary",
+      "use": "@now/python",
       "config": { "maxLambdaSize": "10mb" }
+    },
+    {
+      "src": "python-django/app.py",
+      "use": "@now/python",
+      "config": { "maxLambdaSize": "15mb" }
     },
     { "src": "vue/package.json", "use": "@now/static-build" },
     {

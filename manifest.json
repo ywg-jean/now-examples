@@ -163,6 +163,12 @@
       "path": "/python-flask",
       "demo": "https://python-flask.now-examples.now.sh",
       "description": "An example using Flask, a Python Microframework"
+    },
+    {
+      "example": "Django",
+      "path": "/python-django",
+      "demo": "https://python-django.now-examples.now.sh",
+      "description": "An example using Django, a Python framework for perfectionists with deadlines"
     }
   ],
   "Fully Working Applications": [
