@@ -189,6 +189,12 @@
       "path": "/nodejs-canvas-partyparrot",
       "demo": "https://ppaas.now.sh",
       "description": "A Party Parrot generator built on node-canvas"
+    },
+    {
+      "example": "Flaskex with PostgreSQL",
+      "path": "/flaskex-postgresql",
+      "demo": "https://flaskex-postgresql.now-examples.now.sh",
+      "description": "A serverless Python app built with Flask, WTForms, bcrypt, PostgreSQL, and Bulma"
     }
   ]
 }

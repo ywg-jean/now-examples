@@ -1,0 +1,28 @@
+# Flask
+__pycache__/
+.DS_Store
+.env
+.flaskenv
+*.py[cod]
+*$py.class
+.python-version
+.webassets-cache
+env/
+env*
+dist/
+build/
+*.egg
+*.egg-info/
+_mailinglist
+.tox/
+.cache/
+.pytest_cache/
+.idea/
+docs/_build/
+
+# C extensions
+*.so
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt

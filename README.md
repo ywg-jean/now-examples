@@ -63,3 +63,4 @@ now init              # Pick an example in the CLI
 | [Next MySQL Robots](/nextjs-mysql) | https://nextjs-mysql.now.sh | A serverless Next.js app that uses a MySQL database |
 | [Node Canvas](/nodejs-canvas-partyparrot) | https://ppaas.now.sh | A Party Parrot generator built on node-canvas |
 | [Twitter Dreamify with Express](/express-twitter-dreamify) | https://serverless-express.now.sh | A serverless Express application that takes an authenticated Twitter user's avatar and dreamifies it. [Read the blog post on this example](https://zeit.co/blog/serverless-express-js-lambdas-with-now-2). |
+| [Flaskex with PostgreSQL](/flaskex-postgresql) | https://flaskex-postgresql.now-examples.now.sh | A serverless Python app built with Flask, WTForms, bcrypt, PostgreSQL, and Bulma. |
