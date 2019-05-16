@@ -1,1 +1,5 @@
-module.exports = (req, res) => res.end('Hello from Micro on Now 2.0!')
+const micro = require('micro')
+
+module.exports = micro((req, res) => {
+  return 'Hello from Micro on Now 2.0!'
+})

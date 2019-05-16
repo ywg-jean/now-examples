@@ -1,6 +1,6 @@
 {
   "name": "nodejs-micro",
   "dependencies": {
-    "micro": "^9.3.3"
+    "micro": "^9.3.5-canary.1"
   }
 }
