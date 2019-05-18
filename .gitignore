@@ -1,8 +1,10 @@
 main.dwarf
 node_modules
 .bundle
+.next
 vendor
 target
 yarn-error.log
+.env
 
 .DS_Store
