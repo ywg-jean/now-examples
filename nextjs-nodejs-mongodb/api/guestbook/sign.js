@@ -3,7 +3,7 @@ const connect = require("../../lib/db");
 const { json } = require('micro');
 
 module.exports = async (req, res) => {
-  const { comment, id, user } = await json(req);
+  const { signature, id, user } = await json(req);
 
   // Connect to MongoDB and get the client
   const client = await connect()
@@ -16,9 +16,9 @@ module.exports = async (req, res) => {
   const existing = await signaturesCollection.findOne({ id })
 
   if (existing) {
-    await signaturesCollection.updateOne({ id }, { $set: {user, comment, updated: new Date() }})
+    await signaturesCollection.updateOne({ id }, { $set: {user, signature, updated: new Date() }})
   } else {
-    await signaturesCollection.insertOne({id, user, comment, updated: new Date()})
+    await signaturesCollection.insertOne({id, user, signature, updated: new Date()})
   }
 
   // Close the client connection

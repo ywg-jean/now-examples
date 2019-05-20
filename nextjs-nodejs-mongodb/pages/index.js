@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 
 // Components
-import Comment from '../components/Comment'
+import Signature from '../components/Signature'
 
 HomePage.getInitialProps = async ctx => {
   const { req, query } = ctx
@@ -77,12 +77,12 @@ function HomePage({
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const comment = e.target.comment.value
+    const signature = e.target.signature.value
 
     await fetch(`${baseURL}/api/guestbook/sign.js`, {
       method: 'PATCH',
       body: JSON.stringify({
-        comment,
+        signature,
         id,
         token,
         user: login
@@ -152,7 +152,7 @@ function HomePage({
               : 'want to sign the guestbook?'}
           </h3>
           <form onSubmit={handleSubmit}>
-            <input id="comment" name="comment" />
+            <input id="signature" name="signature" />
             <button type="submit">Sign</button>
           </form>
         </>
@@ -160,12 +160,12 @@ function HomePage({
       {guestbook.length >= 1 && (
         <>
           <h2>Signatures</h2>
-          <div className="comments-list">
+          <div className="signatures-list">
             {guestbook.map(g => (
-              <Comment
+              <Signature
                 id={g.id}
                 loggedInId={id}
-                comment={g.comment}
+                signature={g.signature}
                 user={g.user}
                 updated={g.updated}
                 key={g.id}
@@ -197,7 +197,7 @@ function HomePage({
           justify-content: space-between;
         }
 
-        .comments-list {
+        .signatures-list {
           margin-left: 0;
         }
 

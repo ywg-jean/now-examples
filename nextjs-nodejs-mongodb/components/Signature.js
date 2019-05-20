@@ -1,13 +1,19 @@
+// Signature Component
+// ----
+// This file holds the functional component for each signature in the guestbook.
+// The component takes multiple pieces of information, as seen in the functions parameters, and uses that information to display a signature
+
+
 import { format } from 'date-fns'
 
-function Comment({id, user, comment, updated, loggedInId, handleDelete, ...props}) {
+function Signature({id, user, signature, updated, loggedInId, handleDelete, ...props}) {
   return (
-    <div className="comment" {...props}>
+    <div className="signature" {...props}>
       <a href={`https://github.com/${user}`} className="avatar">
-        <img src={`https://avatars.githubusercontent.com/${user}`} />
+      <img src={`https://avatars.githubusercontent.com/${user}?size=128&v=4`} alt={`${user}'s avatar`}/>
       </a>
-      <div className="comment-content">
-        <div className="comment-header">
+      <div className="signature-content">
+        <div className="signature-header">
           <a href={`https://github.com/${user}`} className="user">
             <h4>{ user }</h4>
           </a>
@@ -24,13 +30,13 @@ function Comment({id, user, comment, updated, loggedInId, handleDelete, ...props
           )}
 
         </div>
-        <div className="comment-body">
-          <p>{ comment }</p>
+        <div className="signature-body">
+          <p>{ signature }</p>
         </div>
       </div>
 
       <style jsx>{`
-        .comment {
+        .signature {
           border-radius: 5px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 12px;
           display: grid;
@@ -50,7 +56,7 @@ function Comment({id, user, comment, updated, loggedInId, handleDelete, ...props
           flex: 1 0 auto;
         }
 
-        .comment-content {
+        .signature-content {
           box-sizing: border-box;
           color: #333;
           display: flex;
@@ -71,7 +77,7 @@ function Comment({id, user, comment, updated, loggedInId, handleDelete, ...props
           border-bottom: none;
         }
 
-        .comment-header {
+        .signature-header {
           display: flex;
           height: fit-content;
           justify-content: space-between;
@@ -86,4 +92,4 @@ function Comment({id, user, comment, updated, loggedInId, handleDelete, ...props
   )
 }
 
-export default Comment
+export default Signature
