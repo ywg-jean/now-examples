@@ -3,7 +3,7 @@
   "name": "nextjs-node-js-mongodb-example",
   "alias": "nextjs-nodejs-mongodb",
   "builds": [
-    { "src": "api/**/*.js", "use": "@now/node" },
+    { "src": "api/**/*.js", "use": "@now/node@canary" },
     { "src": "next.config.js", "use": "@now/next" }
   ],
   "routes": [

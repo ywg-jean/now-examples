@@ -1,5 +1,5 @@
 // Dependencies
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Head from 'next/head'
@@ -17,47 +17,38 @@ HomePage.getInitialProps = async ctx => {
   const host = req ? req.headers['x-forwarded-host'] : location.host
   const baseURL = `${protocol}//${host}`
   const guestbookRequest = await fetch(
-    `${baseURL}/api/guestbook?page=${query.page || 1}&limit=${query.limit || 5}`
+    `${baseURL}/api/guestbook?page=${query.page}&limit=${query.limit}`
   )
-  const { guestbook, pageCount } = await guestbookRequest.json()
-  const existing = guestbook.find(
-    s => s.id === parseInt(query.id || parseCookies(ctx).id)
-  )
+  const { guestbook, page, pageCount } = await guestbookRequest.json()
+  const options = {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/'
+  }
+  let props = { guestbook, page, pageCount }
 
   if (query.token === 'logout') {
     destroyCookie(ctx, 'token')
     destroyCookie(ctx, 'id')
     destroyCookie(ctx, 'name')
-    return { baseURL, existing, guestbook }
+    return props
   }
 
   if (query.id) {
-    await setCookie(ctx, 'id', query.id, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/'
-    })
-    await setCookie(ctx, 'login', query.login, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/'
-    })
-
-    if (query.token && query.token !== 'logout') {
-      await setCookie(ctx, 'token', query.token, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: '/'
-      })
-    }
-
+    await setCookie(ctx, 'id', query.id, options)
+    await setCookie(ctx, 'login', query.login, options)
+    await setCookie(ctx, 'token', query.token, options)
     const { id, login, token } = query
-    return { baseURL, existing, guestbook, id, login, pageCount, token }
+    props = { ...props, id, login, token }
+  } else {
+    const { id, login, token } = await parseCookies(ctx)
+    props = { ...props, id, login, token }
   }
-  const { id, login, token } = await parseCookies(ctx)
-  return { baseURL, existing, guestbook, id, login, pageCount, token }
+
+  return props
 }
 
 function HomePage({
   baseURL,
-  existing,
   guestbook,
   id,
   login,
@@ -65,6 +56,10 @@ function HomePage({
   token,
   router
 }) {
+  const [signatures, setSignatures] = useState([])
+  const [signatureSubmitted, setSignatureSubmitted] = useState({})
+  const existing = signatures.find(s => s.id == id)
+
   useEffect(() => {
     if (router.query.token) {
       router.replace('/', '/', { shallow: true })
@@ -73,30 +68,56 @@ function HomePage({
     if (router.query.page > pageCount) {
       router.replace({pathname: router.pathname, query: Object.assign(router.query, {page: pageCount})}, { shallow: true})
     }
-  })
+
+    setSignatures([...guestbook])
+  }, [guestbook])
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const signature = e.target.signature.value
+    let signature = e.target.signature.value
+    e.target.signature.value = ''
 
-    await fetch(`${baseURL}/api/guestbook/sign.js`, {
+    const res = await fetch(`/api/guestbook`, {
       method: 'PATCH',
       body: JSON.stringify({
         signature,
         id,
-        token,
         user: login
       })
     })
 
-    router.replace('/')
+    if (res.status === 200) {
+      setSignatureSubmitted({status: true})
+
+      if (existing) {
+        const updatedSignatures = signatures.map(s => {
+          if (s.id === existing.id) s.signature = signature
+          return s
+        })
+
+        setSignatures(updatedSignatures)
+      } else {
+        const newSignature = await res.json()
+        const updatedSignatures = [newSignature, ...signatures.slice(0, 4)]
+        setSignatures(updatedSignatures)
+      }
+    } else {
+      setSignatureSubmitted({status: false, message: res.message})
+    }
   }
 
   const handleDelete = async () => {
-    await fetch(`${baseURL}/api/guestbook/delete.js?id=${id}`, {
-      method: 'DELETE'
-    })
-    router.replace('/')
+    const res = await fetch(
+      `/api/guestbook?id=${id}&page=${page}&limit=5`,
+      {
+        method: 'DELETE'
+      }
+    )
+
+    if (res.status === 200) {
+      const data = await res.json()
+      setSignatures([...data.guestbook])
+    }
   }
 
   const page = parseInt(router.query.page) || 1
@@ -111,10 +132,10 @@ function HomePage({
     ...(page + 1 <= pageCount && { page: page + 1})
   }
 
-  const esc = encodeURIComponent;
+  const esc = encodeURIComponent
   const buildParams = (params) => Object.keys(params)
       .map(k => esc(k) + '=' + esc(params[k]))
-      .join('&');
+      .join('&')
 
   const nextPageLink = `/?${buildParams(nextParams)}`
   const previousPageLink = `/?${buildParams(previousParams)}`
@@ -155,6 +176,7 @@ function HomePage({
             <input id="signature" name="signature" />
             <button type="submit">Sign</button>
           </form>
+          <span>{ signatureSubmitted && (signatureSubmitted.status === true ? '' : signatureSubmitted.message) }</span>
         </>
       )}
       {guestbook.length >= 1 && (
@@ -225,7 +247,7 @@ function HomePage({
         }
       `}</style>
     </>
-  );
+  )
 }
 
 export default withRouter(HomePage)

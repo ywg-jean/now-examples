@@ -1,28 +1,38 @@
-const url = require('url')
+// Import Dependencies
 const connect = require("../../lib/db");
 const { json } = require('micro');
 
+// The main exported function that handles the request and response
 module.exports = async (req, res) => {
+  // Destructure variables from the request body
+  // (converted to JSON using micro)
   const { signature, id, user } = await json(req);
 
-  // Connect to MongoDB and get the client
-  const client = await connect()
+  // Reject request if no signature is provided in the JSON
+  if (!signature) {
+    res.writeHead(400);
+    res.end(JSON.stringify({message: 'Request is missing a "signature" property.'}))
+    return
+  }
 
-  // Parse database name from MongoDB URI string
-  const database = await client.db(url.parse(process.env.MONGODB_URI).pathname.substr(1))
+  // Connect to MongoDB and get the database
+  const database = await connect()
 
+  // Select the "signatures" collection to insert to
   const signaturesCollection = await database.collection('signatures')
 
+  // Find if a signature exists for the current user
   const existing = await signaturesCollection.findOne({ id })
 
+  // If the user exists, update the signature
+  // If the user is new, insert the signature
   if (existing) {
     await signaturesCollection.updateOne({ id }, { $set: {user, signature, updated: new Date() }})
   } else {
     await signaturesCollection.insertOne({id, user, signature, updated: new Date()})
   }
 
-  // Close the client connection
-  await client.close()
-
-  res.end();
-};
+  // End the response and return
+  res.end()
+  return
+}
