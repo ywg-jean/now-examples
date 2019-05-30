@@ -9,7 +9,7 @@
     {
       "example": "Go",
       "path": "/go",
-      "demo": "https://go-v2.now.sh",
+      "demo": "https://go.now-examples.now.sh/",
       "description": "A simple GoLang example"
     },
     {

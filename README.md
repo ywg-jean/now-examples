@@ -16,7 +16,7 @@ now init              # Pick an example in the CLI
 | Example    | Demo     | Description     |
 |:---------- |:---------|:----------------|
 | [Monorepo](/monorepo)          | https://monorepo-v2.now.sh         | A Monorepo example using multiple programming languages         |
-| [Go](/go)          | https://go-v2.now.sh         | A simple GoLang example         |
+| [Go](/go)          | https://go.now-examples.now.sh/         | A simple GoLang example         |
 | [PHP 7](/php-7)    | https://php7-v2.now.sh     | A simple PHP 7 example          |
 | [Python](/python)  | https://python-v2.now.sh | A simple Python example         |
 | [Node.js](/nodejs) | https://nodejs-v2.now.sh | A simple Node.js example        |

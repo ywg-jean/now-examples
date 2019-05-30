@@ -4,7 +4,8 @@
   "public": true,
   "builds": [
     { "src": "apollo/index.js", "use": "@now/node-server" },
-    { "src": "go/*.go", "use": "@now/go" },
+    { "src": "go/api/**/*.go", "use": "@now/go" },
+    { "src": "go/static/**/*", "use": "@now/static" },
     { "src": "bash/*.sh", "use": "@now/bash" },
     { "src": "markdown/*.css", "use": "@now/static" },
     {

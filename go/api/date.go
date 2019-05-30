@@ -3,8 +3,11 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello from Go on Now 2.0!")
+	currentTime := time.Now().Format(time.RFC850)
+
+	fmt.Fprintf(w, currentTime)
 }

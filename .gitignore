@@ -6,3 +6,4 @@ target
 yarn-error.log
 
 .DS_Store
+**/.now

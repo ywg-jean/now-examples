@@ -1,7 +1,11 @@
 {
-    "version": 2,
-    "name": "go",
-    "builds": [
-        { "src": "*.go", "use": "@now/go" }
-    ]
+  "version": 2,
+  "name": "my-go-project",
+  "builds": [
+    { "src": "www/**/*", "use": "@now/static" },
+    { "src": "api/**/*.go", "use": "@now/go" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "www/index.html" }
+  ]
 }
