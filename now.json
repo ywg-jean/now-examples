@@ -5,7 +5,7 @@
   "builds": [
     { "src": "apollo/index.js", "use": "@now/node-server" },
     { "src": "go/api/**/*.go", "use": "@now/go" },
-    { "src": "go/static/**/*", "use": "@now/static" },
+    { "src": "go/www/**/*", "use": "@now/static" },
     { "src": "bash/*.sh", "use": "@now/bash" },
     { "src": "markdown/*.css", "use": "@now/static" },
     {
@@ -23,7 +23,8 @@
         "css": "/markdown/style.css"
       }
     },
-    { "src": "nodejs/*.js", "use": "@now/node" },
+    { "src": "nodejs/api/**/*.js", "use": "@now/node" },
+    { "src": "nodejs/www/**/*", "use": "@now/static" },
     { "src": "nodejs-ts/*.ts", "use": "@now/node" },
     { "src": "php-7/*.php", "use": "@now/php" },
     {

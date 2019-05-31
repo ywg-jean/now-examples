@@ -27,7 +27,7 @@
     {
       "example": "Node.js",
       "path": "/nodejs",
-      "demo": "https://nodejs-v2.now.sh",
+      "demo": "https://nodejs.now-examples.now.sh/",
       "description": "A simple Node.js example"
     },
     {
