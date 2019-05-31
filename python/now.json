@@ -1,7 +1,11 @@
 {
-    "version": 2,
-    "name": "python",
-    "builds": [
-        { "src": "*.py", "use": "@now/python" }
-    ]
+  "version": 2,
+  "name": "my-python-project",
+  "builds": [
+    { "src": "www/**/*", "use": "@now/static" },
+    { "src": "api/**/*.py", "use": "@now/python" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "www/index.html" }
+  ]
 }

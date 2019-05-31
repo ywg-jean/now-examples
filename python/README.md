@@ -1,50 +1,91 @@
-# Python
+# Python API with a Static Frontend on ZEIT Now
 
-In this example we will be deploying a simple "Hello World" example with Python.
+**Live Demo**: https://python.now-examples.now.sh/
 
-### Getting started with Python
+This example shows a pre-setup project including:
+- An `api` directory, containing a single endpoint that retrieves the current time with Python.
+- A `www` directory, containing static files such as `index.html` and `style.css` that show a frontend with information from the API.
 
-- Create a `index.py` file with the following code:
+## Get Started with This Project
 
-```python
-from http.server import BaseHTTPRequestHandler
+To get started with this project yourself, you can use [Now CLI](https://zeit.co/download) to initialize it.
 
-class handler(BaseHTTPRequestHandler):
+From your terminal, use the following command to create a directory called `my-python-project` including the files of this example:
 
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write(str("Hello from Python on Now 2.0!").encode())
-        return
+```bash
+now init python my-python-project
 ```
 
-### Deploy with Now
+Then, `cd` into your new project's directory (with `cd my-python-project`).
 
-First we need to create a `now.json` configuration file to instruct Now how to build the project.
+You now have a project, ready to go into development, staging, or production with Now. Your next step is up to you. Try one of the following:
 
-For this example we will be using our newest version [Now 2.0](https://zeit.co/now).
+#### Local Development
 
-By adding the `version` key to the `now.json` file, we can specify which Now Platform version to use.
+Using Now CLI, as you did to initialize this project, you can use the following command from your terminal to start a development environment locally which replicates the production environment on Now so you can test your new project:
 
-We also need to define each builders we would like to use. [Builders](https://zeit.co/docs/v2/deployments/builders/overview/) are modules that take a deployment's source and return an output, consisting of [either static files or dynamic Lambdas](https://zeit.co/docs/v2/deployments/builds/#sources-and-outputs).
+```bash
+now dev
+```
 
-In this case we are going to use `@now/python` to build and deploy the all Python files. We will also define a name for our project (optional).
+#### Automatic Deployments with Git
+
+Using either [Now for GitHub](https://zeit.co/github) or [Now for GitLab](https://zeit.co/gitlab), you can push this project to a Git repository and it will deploy automatically.
+
+If on anything other than the default branch, with each push your project will be deployed, automatically, to a unique staging URL.
+
+If pushing or merging to the default branch, your project will be deployed and aliased in a production environment, automatically.
+
+Read more about the ZEIT Now Git Integrations:
+- [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github/)
+- [Now for GitLab](https://zeit.co/docs/v2/integrations/now-for-gitlab/)
+
+
+#### Deploying from Your Terminal
+
+Using [Now CLI](https://zeit.co/download), you can also deploy to both [staging](https://zeit.co/docs/v2/domains-and-aliases/aliasing-a-deployment#staging) and [production](https://zeit.co/docs/v2/domains-and-aliases/aliasing-a-deployment#production) environments from your terminal.
+
+For a staging deployment, you can use the following one-word command:
+```bash
+now
+```
+
+Then, for production, including automatic aliasing, you can use the following:
+```bash
+now --target production
+```
+
+For more information on deploying, see the [Deployment Basics documentation](https://zeit.co/docs/v2/deployments/basics#introducing-a-build-step).
+
+## Configuration Breakdown
+
+This example contains a `now.json` file which instructs Now how to treat this project when developing locally and deploying. 
 
 ```json
 {
-    "version": 2,
-    "name": "python",
-    "builds": [
-        { "src": "*.py", "use": "@now/python" }
-    ]
+  "version": 2,
+  "name": "my-python-project",
+  "builds": [
+    { "src": "www/**/*", "use": "@now/static" },
+    { "src": "api/**/*.py", "use": "@now/python" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "www/index.html" }
+  ]
 }
 ```
 
-Visit our [documentation](https://zeit.co/docs/v2/deployments/configuration) for more information on the `now.json` configuration file.
+The above instructs Now with:
 
-We are now ready to deploy the app.
+- The [`version` property](https://zeit.co/docs/v2/deployments/configuration#version), specifying the latest Now 2.0 Platform version.
+- The [`name` property](https://zeit.co/docs/v2/deployments/configuration#name), setting the name for the deployment.
+- The [`builds` property](https://zeit.co/docs/v2/deployments/configuration#builds), allowing Now to use [the @now/python Builder](https://zeit.co/docs/v2/deployments/official-builders/python-now-python) with a specific source target.
+- The [`routes` property](https://zeit.co/docs/v2/deployments/configuration#routes), instructing Now to route the user to the `www/index.html` file when requesting the root path.
 
-```
-now
-```
+For more information on configuring Now, see the [Configuration documentation](https://zeit.co/docs/v2/deployments/configuration).
+
+## Resources
+
+Learn more about the ZEIT Now platform from [our documentation](https://zeit.co/docs), including:
+- [More information on deploying Python projects](https://zeit.co/docs/v2/deployments/official-builders/python-now-python) and some technical details.
+- [More information on the platform itself](https://zeit.co/docs), including [domains and aliasing](https://zeit.co/docs/v2/domains-and-aliases/introduction/) and [local development](https://zeit.co/docs/v2/development/basics/).
