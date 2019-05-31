@@ -16,6 +16,7 @@ HomePage.getInitialProps = async ctx => {
     : location.protocol
   const host = req ? req.headers['x-forwarded-host'] : location.host
   const baseURL = `${protocol}//${host}`
+
   const guestbookRequest = await fetch(
     `${baseURL}/api/guestbook?page=${query.page}&limit=${query.limit}`
   )
@@ -24,7 +25,7 @@ HomePage.getInitialProps = async ctx => {
     maxAge: 30 * 24 * 60 * 60,
     path: '/'
   }
-  let props = { guestbook, page, pageCount }
+  let props = { guestbook, page, pageCount, baseURL }
 
   if (query.token === 'logout') {
     destroyCookie(ctx, 'token')
