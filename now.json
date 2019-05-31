@@ -48,6 +48,8 @@
       "use": "@now/static-build",
       "config": { "distDir": "build" }
     },
+    { "src": "express/www/**/*", "use": "@now/static" },
+    { "src": "express/api/**/*.js", "use": "@now/node" },
     { "src": "static/**", "use": "@now/static" },
     { "src": "nextjs/next.config.js", "use": "@now/next" },
     { "src": "nextjs-static/package.json", "use": "@now/static-build" },
@@ -63,7 +65,6 @@
       "use": "now-coffee",
       "config": { "dest": "app.coffee" }
     },
-    { "src": "express/**/*.js", "use": "@now/node" },
     { "src": "nodejs-micro/index.js", "use": "now-micro" },
     {
       "src": "gatsby/package.json",

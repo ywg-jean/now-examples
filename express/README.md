@@ -1,70 +1,93 @@
-# Creating a server with Express
+# Express API with a Static Frontend on ZEIT Now
 
-This example offers a pre-setup project for [Express](http://expressjs.com/) that allows you to get up and running in no time!
+**Live Demo**: https://express.now-examples.now.sh/
 
-You can run the following command `now init express` to fetch the example to your local machine.
+This example shows a pre-setup project including:
 
-This Express example features the [`now.json` configuration file](https://zeit.co/docs/v2/deployments/configuration) below.
+- An `api` directory, containing a single endpoint that retrieves the current time with Express built with the [@now/node Builder](https://zeit.co/docs/v2/deployments/official-builders/node-js-now-node/).
+- A `www` directory, containing static files such as `index.html` and `style.css` that show a frontend with information from the API.
+
+## Get Started with This Project
+
+To get started with this project yourself, you can use [Now CLI](https://zeit.co/download) to initialize it.
+
+From your terminal, use the following command to create a directory called `my-express-project` including the files of this example:
+
+```bash
+now init express my-express-project
+```
+
+Then, `cd` into your new project's directory (with `cd my-express-project`).
+
+You now have a project, ready to go into development, staging, or production with Now. Your next step is up to you. Try one of the following:
+
+#### Local Development
+
+Using Now CLI, as you did to initialize this project, you can use the following command from your terminal to start a development environment locally which replicates the production environment on Now so you can test your new project:
+
+```bash
+now dev
+```
+
+#### Automatic Deployments with Git
+
+Using either [Now for GitHub](https://zeit.co/github) or [Now for GitLab](https://zeit.co/gitlab), you can push this project to a Git repository and it will deploy automatically.
+
+If on anything other than the default branch, with each push your project will be deployed, automatically, to a unique staging URL.
+
+If pushing or merging to the default branch, your project will be deployed and aliased in a production environment, automatically.
+
+Read more about the ZEIT Now Git Integrations:
+
+- [Now for GitHub](https://zeit.co/docs/v2/integrations/now-for-github/)
+- [Now for GitLab](https://zeit.co/docs/v2/integrations/now-for-gitlab/)
+
+#### Deploying from Your Terminal
+
+Using [Now CLI](https://zeit.co/download), you can also deploy to both [staging](https://zeit.co/docs/v2/domains-and-aliases/aliasing-a-deployment#staging) and [production](https://zeit.co/docs/v2/domains-and-aliases/aliasing-a-deployment#production) environments from your terminal.
+
+For a staging deployment, you can use the following one-word command:
+
+```bash
+now
+```
+
+Then, for production, including automatic aliasing, you can use the following:
+
+```bash
+now --target production
+```
+
+For more information on deploying, see the [Deployment Basics documentation](https://zeit.co/docs/v2/deployments/basics#introducing-a-build-step).
+
+## Configuration Breakdown
+
+This example contains a `now.json` file which instructs Now how to treat this project when developing locally and deploying.
 
 ```json
 {
-    "version": 2,
-    "name": "express",
-    "builds": [
-        { "src": "**/*.js", "use": "@now/node" }
-    ]
+  "version": 2,
+  "name": "my-express-project",
+  "builds": [
+    { "src": "www/**/*", "use": "@now/static" },
+    { "src": "api/**/*.js", "use": "@now/node" }
+  ],
+  "routes": [{ "src": "/", "dest": "www/index.html" }]
 }
 ```
 
-_now.json_
+The above instructs Now with:
 
-- The `version` property specifies [`Now 2.0`](https://zeit.co/now).
-- The `name` property sets the name for the deployment.
-- The [`builds` property](https://zeit.co/docs/v2/deployments/builds) allows Now to use a [builder](https://zeit.co/docs/v2/deployments/builders/overview/) with a specific source target.
+- The [`version` property](https://zeit.co/docs/v2/deployments/configuration#version), specifying the latest Now 2.0 Platform version.
+- The [`name` property](https://zeit.co/docs/v2/deployments/configuration#name), setting the name for the deployment.
+- The [`builds` property](https://zeit.co/docs/v2/deployments/configuration#builds), allowing Now to use [the @now/node Builder](https://zeit.co/docs/v2/deployments/official-builders/node-js-now-node/) with a specific source target.
+- The [`routes` property](https://zeit.co/docs/v2/deployments/configuration#routes), instructing Now to route the user to the `www/index.html` file when requesting the root path.
 
-In this case we are going to use the `@now/node` builder to create a lambda function for every `.js` file in the project.  There are two `.js` files - `index.js` and `about/index.js`, which will be made available at your Now servers' urls `/` and `/about`.
-
-Deploy the app with Now.
-
-```shell
-$ now
-```
-
-# Using Express with the `@now/node` builder
-
-Note that we won't be creating a server, or using a `listen()` function to start a server, since Now is functioning as the server.  Express is used just for routing and middleware purposes.
-
-Calling `express()` returns a function that takes a standard Node.js [http request object](https://nodejs.org/api/http.html#http_class_http_incomingmessage) and [http response object](https://nodejs.org/api/http.html#http_class_http_serverresponse) as parameters. Typically this function is defined as the variable `app` in an Node.js module, and that function also supports [routing and middleware customization](http://expressjs.com/en/4x/api.html#app).  And ... that function signature - `(req, res)` - is the exact shape that Now expects to be exported from a module. So you can return the result of the `express()` call, adding routing and middleware as you normally would with an express server.
-
-Here's a very small example of using express:
-
-```js
-const express = require('express')
-
-const app = express()
-
-app.get('*', (req, res) => {
-    res.send(200, '<h1>Hello, world!</h1>')
-})
-
-module.exports = app
-
-```
-
-The `req` and `res` objects passed to the callback of `app.get()` will then be [Express Request](http://expressjs.com/en/4x/api.html#req) and [Express Response](http://expressjs.com/en/4x/api.html#res) objects, instead of Node's standard http request and response objects.  So, you can use the Express [`res.send()` method](http://expressjs.com/en/4x/api.html#res.send) instead of the lower-level methods on the standard Node.js response object.
-
-In the actual example code - [`index.js`](index.js) - you'll also note usage of
-the [helmet package](https://npmjs.org/package/helmet) in the same way you'd
-use it in a typical express server:
-
-```js
-app.use(helmet())
-```
-
-The helmet package adds extra security-related HTTP headers to HTTP responses sent from the express app.
+For more information on configuring Now, see the [Configuration documentation](https://zeit.co/docs/v2/deployments/configuration).
 
 ## Resources
 
-- To find more information on using the **Node.js Builder**, please refer to the [Node.js Builder (@now/node)](https://zeit.co/docs/v2/deployments/official-builders/node-js-now-node/) documentation.
+Learn more about the ZEIT Now platform from [our documentation](https://zeit.co/docs), including:
 
-- Check out how to [Deploy any of your applications with ZEIT Now.](https://zeit.co/docs/v2/deployments/basics)
+- [More information on deploying Express projects](https://zeit.co/docs/v2/deployments/official-builders/node-js-now-node/) and some technical details.
+- [More information on the platform itself](https://zeit.co/docs), including [domains and aliasing](https://zeit.co/docs/v2/domains-and-aliases/introduction/) and [local development](https://zeit.co/docs/v2/development/basics/).

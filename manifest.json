@@ -89,7 +89,7 @@
     {
       "example": "Express",
       "path": "/express",
-      "demo": "https://express-v2.now.sh",
+      "demo": "https://express.now-examples.now.sh/",
       "description": "An example using Express"
     },
     {
