@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "nextjs-mysql",
+  "name": "my-nextjs-mysql-project",
   "builds": [
     { "src": "api/**/*.js", "use": "@now/node" },
     { "src": "next.config.js", "use": "@now/next" }
