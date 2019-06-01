@@ -9,5 +9,6 @@ module.exports = async (req, res) => {
     FROM profiles
     WHERE id = ${query.id}
   `);
+  res.setHeader('cache-control', 's-maxage=1 maxage=0, stale-while-revalidate');
   res.end(JSON.stringify({ profile }));
 };

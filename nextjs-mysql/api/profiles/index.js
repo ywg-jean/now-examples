@@ -19,5 +19,6 @@ module.exports = async (req, res) => {
     `);
   const { profilesCount } = count[0];
   const pageCount = Math.ceil(profilesCount / limit);
+  res.setHeader('cache-control', 's-maxage=1 maxage=0, stale-while-revalidate');
   res.end(JSON.stringify({ profiles, pageCount, page }));
 };
