@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
   // Destructure variables from the request body
   // (converted to JSON using micro)
   const { signature, id, user } = await json(req);
+  const updated = new Date();
 
   // Reject request if no signature is provided in the JSON
   if (!signature) {
@@ -27,9 +28,11 @@ module.exports = async (req, res) => {
   // If the user exists, update the signature
   // If the user is new, insert the signature
   if (existing) {
-    await signaturesCollection.updateOne({ id }, { $set: {user, signature, updated: new Date() }})
+    await signaturesCollection.updateOne({ id }, { $set: {user, signature, updated }})
   } else {
-    await signaturesCollection.insertOne({id, user, signature, updated: new Date()})
+    await signaturesCollection.insertOne({id: id.toString(), user, signature, updated })
+    res.end(JSON.stringify({ id, user, signature, updated }))
+    return
   }
 
   // End the response and return

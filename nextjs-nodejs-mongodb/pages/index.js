@@ -8,8 +8,9 @@ import { withRouter } from 'next/router'
 
 // Components
 import Signature from '../components/Signature'
+import SignatureSkeleton from '../components/SignatureSkeleton'
 
-HomePage.getInitialProps = async ctx => {
+Home.getInitialProps = async ctx => {
   const { req, query } = ctx
   const protocol = req
     ? `${req.headers['x-forwarded-proto']}:`
@@ -17,15 +18,11 @@ HomePage.getInitialProps = async ctx => {
   const host = req ? req.headers['x-forwarded-host'] : location.host
   const baseURL = `${protocol}//${host}`
 
-  const guestbookRequest = await fetch(
-    `${baseURL}/api/guestbook?page=${query.page}&limit=${query.limit}`
-  )
-  const { guestbook, page, pageCount } = await guestbookRequest.json()
   const options = {
     maxAge: 30 * 24 * 60 * 60,
     path: '/'
   }
-  let props = { guestbook, page, pageCount, baseURL }
+  let props = { baseURL }
 
   if (query.token === 'logout') {
     destroyCookie(ctx, 'token')
@@ -48,37 +45,69 @@ HomePage.getInitialProps = async ctx => {
   return props
 }
 
-function HomePage({
+function Home({
   baseURL,
-  guestbook,
   id,
   login,
-  pageCount,
   token,
   router
 }) {
-  const [signatures, setSignatures] = useState([])
+  const [signatures, setSignatures] = useState(undefined)
   const [signatureSubmitted, setSignatureSubmitted] = useState({})
-  const existing = signatures.find(s => s.id == id)
+  const [pageCount, setPageCount] = useState(1)
+  const [loaded, setLoaded] = useState(false)
+  const existing = signatures ? signatures.find(s => s.id == id) : null
+  const page = parseInt(router.query.page) || 1
+  const limit = parseInt(router.query.limit) || 5
+
+  const previousParams = {
+    ...(router.query.limit && { limit: router.query.limit }),
+    ...((page - 1 >= 1 && { page: page - 1}) || (page - 1 === 1 && null))
+  }
+
+  const nextParams = {
+    ...(router.query.limit && { limit: router.query.limit }),
+    ...(page + 1 <= pageCount && { page: page + 1})
+  }
+
+  const esc = encodeURIComponent
+  const buildParams = (params) => Object.keys(params)
+      .map(k => esc(k) + '=' + esc(params[k]))
+      .join('&')
+
+  const nextPageLink = `/?${buildParams(nextParams)}`
+  const previousPageLink = `/?${buildParams(previousParams)}`
 
   useEffect(() => {
     if (router.query.token) {
       router.replace('/', '/', { shallow: true })
     }
 
+    async function fetchData() {
+      console.log('test')
+      const response = await fetch(
+        `${baseURL}/api/guestbook/list.js?page=${page}&limit=${limit}`
+      )
+
+      const { guestbook, pageCount } = await response.json()
+      setSignatures([...guestbook])
+      setPageCount(pageCount)
+      setLoaded(true)
+    }
+
+    fetchData()
+
     if (router.query.page > pageCount) {
       router.replace({pathname: router.pathname, query: Object.assign(router.query, {page: pageCount})}, { shallow: true})
     }
-
-    setSignatures([...guestbook])
-  }, [guestbook])
+  }, [signatures])
 
   const handleSubmit = async e => {
     e.preventDefault()
     let signature = e.target.signature.value
     e.target.signature.value = ''
 
-    const res = await fetch(`/api/guestbook`, {
+    const res = await fetch(`/api/guestbook/sign.js`, {
       method: 'PATCH',
       body: JSON.stringify({
         signature,
@@ -109,7 +138,7 @@ function HomePage({
 
   const handleDelete = async () => {
     const res = await fetch(
-      `/api/guestbook?id=${id}&page=${page}&limit=5`,
+      `/api/guestbook/delete.js?id=${id}&page=${page}&limit=${limit}`,
       {
         method: 'DELETE'
       }
@@ -121,25 +150,6 @@ function HomePage({
     }
   }
 
-  const page = parseInt(router.query.page) || 1
-
-  const previousParams = {
-    ...(router.query.limit && { limit: router.query.limit }),
-    ...((page - 1 >= 1 && { page: page - 1}) || (page - 1 === 1 && null))
-  }
-
-  const nextParams = {
-    ...(router.query.limit && { limit: router.query.limit }),
-    ...(page + 1 <= pageCount && { page: page + 1})
-  }
-
-  const esc = encodeURIComponent
-  const buildParams = (params) => Object.keys(params)
-      .map(k => esc(k) + '=' + esc(params[k]))
-      .join('&')
-
-  const nextPageLink = `/?${buildParams(nextParams)}`
-  const previousPageLink = `/?${buildParams(previousParams)}`
 
   return (
     <>
@@ -155,7 +165,7 @@ function HomePage({
         <h1>GitHub Guestbook</h1>
         <Link
           href={
-            !token ? `${baseURL}/api/auth/index.js` : `/?token=logout`
+            !token ? `${baseURL}/api/auth` : `/?token=logout`
           }
         >
           <a>
@@ -180,26 +190,21 @@ function HomePage({
           <span>{ signatureSubmitted && (signatureSubmitted.status === true ? '' : signatureSubmitted.message) }</span>
         </>
       )}
-      {guestbook.length >= 1 && (
-        <>
-          <h2>Signatures</h2>
-          <div className="signatures-list">
-            {guestbook.map(g => (
-              <Signature
-                id={g.id}
-                loggedInId={id}
-                signature={g.signature}
-                user={g.user}
-                updated={g.updated}
-                key={g.id}
-                handleDelete={handleDelete}
-                />
-            ))}
-          </div>
-        </>
-      )}
-      {
-      }
+      <h2>Signatures</h2>
+      <div className="signatures-list">
+        { loaded }
+        { loaded && signatures ? <>{ signatures.length ? signatures.map(g => (
+          <Signature
+            id={g.id}
+            loggedInId={id}
+            signature={g.signature}
+            user={g.user}
+            updated={g.updated}
+            key={g.id}
+            handleDelete={handleDelete}
+            />
+        )) : "No signatures, why not sign above?"}</> : <SignatureSkeleton /> }
+      </div>
 
       <nav>
         {previousParams.page && (
@@ -251,4 +256,4 @@ function HomePage({
   )
 }
 
-export default withRouter(HomePage)
+export default withRouter(Home)
