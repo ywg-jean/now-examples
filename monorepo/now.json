@@ -27,5 +27,6 @@
             "x-request-path": "$1"
           }
         }
-    ]
+    ],
+    "regions": ["gru1", "hnd1", "iad1", "sfo1"]
 }
