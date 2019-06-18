@@ -1,10 +1,7 @@
 const PDFDocument = require("pdfkit");
-const { parse } = require("url");
 
 module.exports = (req, res) => {
-  const {
-    query: { text }
-  } = parse(req.url, true);
+  const { text } = req.query
 
   const doc = new PDFDocument();
   doc
@@ -24,6 +21,6 @@ module.exports = (req, res) => {
   doc
     .fillColor(text ? "#50E3C2" : "#FF0080")
     .text(text || "No `text` query!", 50, 130);
-  doc.pipe(res);
+  res.status(200).send(doc);
   doc.end();
 };

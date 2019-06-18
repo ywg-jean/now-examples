@@ -1,5 +1,4 @@
-import { IncomingMessage, ServerResponse } from "http";
-import url from "url";
+import { NowRequest, NowResponse } from "@now/node";
 
 import { ParsedUrlQuery } from "querystring";
 import { Sushi } from "../../../types";
@@ -18,13 +17,11 @@ const validateQuery = (query: ParsedUrlQuery): Pick<Sushi, "type"> => {
   return query as Pick<Sushi, "type">;
 };
 
-export default (req: IncomingMessage, res: ServerResponse) => {
-  res.writeHead(200, { "Content-Type": "application/json" });
-
+export default (req: NowRequest, res: NowResponse) => {
   try {
-    const { type } = validateQuery(url.parse(req.url || "", true).query);
-    res.end(JSON.stringify(getSushi(type)));
+    const { type } = validateQuery(req.query);
+    res.status(200).json(getSushi(type));
   } catch (error) {
-    res.end(JSON.stringify({ error: error.message }));
+    res.status(200).json({ error: error.message });
   }
 };

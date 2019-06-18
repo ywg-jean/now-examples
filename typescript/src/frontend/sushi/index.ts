@@ -5,7 +5,7 @@ import url from "url";
 import { Sushi } from "../../../types";
 import layout from "../layout";
 
-const handler = async (req: IncomingMessage, res: ServerResponse) => {
+export default async (req: IncomingMessage, res: ServerResponse) => {
   const { type } = url.parse(req.url || "", true).query;
   res.writeHead(200, { "Content-Type": "text/html" });
 
@@ -40,9 +40,3 @@ const handler = async (req: IncomingMessage, res: ServerResponse) => {
     );
   }
 };
-
-if (!process.env.IS_NOW) {
-  createServer(handler).listen(3000);
-}
-
-export default handler;

@@ -28,7 +28,7 @@ func Time(w http.ResponseWriter, r *http.Request) {
 
 ```js
 module.exports = (req, res) => {
-  res.end(new Date().toString());
+  res.send(new Date().toString());
 };
 ```
 

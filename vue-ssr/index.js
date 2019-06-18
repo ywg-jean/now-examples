@@ -8,9 +8,6 @@ module.exports = async (req, res) => {
   });
 
   const html = await renderer.renderToString(app);
-  res.writeHead(200, {
-    "Content-Type": "text/html; charset=utf-8",
-    "Content-Length": Buffer.byteLength(html)
-  });
-  res.end(html);
+  res.setHeader("Content-Type", "text/html; charset=utf-8")
+  res.status(200).send(html)
 };

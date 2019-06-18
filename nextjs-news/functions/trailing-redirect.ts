@@ -1,7 +1,7 @@
-import { IncomingMessage, ServerResponse } from "http";
 import { parse } from 'url'
+import { NowRequest, NowResponse } from '@now/node'
 
-const func = (req: IncomingMessage, res: ServerResponse) => {
+const func = (req: NowRequest, res: NowResponse) => {
   if (req.url) {
     const url = parse(req.url)
     if (url.pathname && url.pathname.slice(-1) === '/') {

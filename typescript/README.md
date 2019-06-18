@@ -8,10 +8,7 @@ This example, a sushi information application, uses TypeScript and shares a type
 
 1. Clone the repo
 2. `cd now-examples/typescript`
-3. `yarn` (optionally `npm i`)
-4. `yarn dev src/frontend/index.ts` to run the front page lambda locally, or
-   - `yarn dev src/frontend/sushi.ts` to run the sushi detail lambda locally, or
-   - `yarn dev path/to/ts/lambda.ts` to run a TS Lambda locally.
+3. `now dev` to run the project locally
 
 ## More Info
 
