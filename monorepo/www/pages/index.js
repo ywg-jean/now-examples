@@ -1,23 +1,12 @@
+import Link from 'next/Link'
 import Time from '../components/time'
 import 'isomorphic-unfetch'
 
-const langs = [
-  { name: 'Go', path: 'go', ext: '.go' },
-  { name: 'Python', path: 'python', ext: '.py' },
-  { name: 'Bash', path: 'bash', ext: '.sh' },
+const langs = [  
   { name: 'Node.js', path: 'node', ext: '.js' }
 ]
 
 const Page = ({nows}) => <div className="container">
-    <div className="logo">
-      <svg width={40} height={36}>
-        <path
-          d="M20 .1L.1 35.8h39.7L20 0zm-1.7 7.2l14.5 26.4H3.6L18.3 7.3z"
-          fill="#fff"
-          fillRule="nonzero"
-        />
-      </svg>
-    </div>
     <div className="clocks">
       {nows.map(({name, path, ext, now}) => 
         <a href={`https://zeit.co/now-examples/monorepo/4csp3st7w/source?f=src/${path}/index${ext}`} target="_blank" title={name} key={path}>
@@ -30,11 +19,7 @@ const Page = ({nows}) => <div className="container">
       )}
     </div>
     <div className="intro">
-      <hr/>
-      <h2>What is this?</h2>
-      <p>We built this deployment to showcase the power and flexibility of <a href="https://zeit.co/blog/now-2" target="_blank">Now 2.0</a>. It's organized as a monorepo that combines multiple technologies.</p>
-      <p>The entrypoint to this deployment is a Next.js application, compiled to serverless functions that server-render on-demand.</p>
-      <p>Thanks to our <a href="https://zeit.co/docs/v2/deployments/builders/overview" title="builders" target="_blank">builders</a>, you are not limited to just static or dynamic, Go or Node.js. The possibilities are endless.</p>
+      <h2><Link href="/foo"><a>foo</a></Link> - <Link href="/bar"><a>bar</a></Link></h2>      
     </div>
     <style jsx global>{`
       * {
@@ -167,13 +152,24 @@ const Page = ({nows}) => <div className="container">
       }
     `}</style>
   </div>
-
-Page.getInitialProps = async ({req}) => {
-  const protocol = req.headers['x-forwarded-proto']
-  const host = req.headers['x-forwarded-host'] || req.headers.host
-  const baseUrl = `${protocol}://${host}/api`
+const baseUrl = ({req,...ctx})=>{
+  if(ctx.res){
+    const protocol = req.headers['x-forwarded-proto'];
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const baseUrl = `${protocol}://${host}/api`;
+    console.log("server baseUrl",baseUrl);
+    return baseUrl;
+  }else{
+    const protocol = window.location.protocol;
+    const host = window.location.host;
+    const baseUrl = `${protocol}//${host}/api`;
+    console.log("window baseUrl",baseUrl);
+    return baseUrl;
+  }
+}
+Page.getInitialProps = async (ctx) => {
   const nows = await Promise.all(langs.map(async ({name, path, ext}) => {
-    const now = await (await fetch(`${baseUrl}/${path}`)).text()
+    const now = await (await fetch(`${baseUrl(ctx)}/${path}`)).text()
     return {name, path, now, ext}
   }))
 
